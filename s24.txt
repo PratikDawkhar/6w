@@ -1,0 +1,14 @@
+Importpandasaspd
+#Readthedataset
+Df=pd.read_csv(‘INvideos.csv’)
+#Dropthecolumnsthatarenotrequired
+Df=df.drop([‘video_id’,‘trending_date’,‘channel_title’,‘category_id’,‘publish_time’,‘tags’,‘thumbnail_link’,‘comments_disabled’,‘ratings_disabled’,‘video_error_or_removed’],axis=1)#Convertthedatatypeof‘views’,‘likes’,‘dislikes’,and‘comment_count’tointegerDf[[‘views’,‘likes’,‘dislikes’,‘comment_count’]]=df[[‘views’,‘likes’,‘dislikes’,‘comment_count’]].astype(int)
+#Findthetotalviews,likes,dislikes,andcommentcount
+Total_views=df[‘views’].sum()
+Total_likes=df[‘likes’].sum()
+Total_dislikes=df[‘dislikes’].sum()
+Total_comments=df[‘comment_count’].sum()
+Print(‘TotalViews:’,total_views)
+Print(‘TotalLikes:’,total_likes)
+Print(‘TotalDislikes:’,total_dislikes)
+Print(‘TotalComments:’,total_comments)

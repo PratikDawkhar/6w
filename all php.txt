@@ -1,0 +1,1090 @@
+ Slip 1:
+<?php
+if(!isset($_COOKIE['count']))
+{
+echo"Wlcome to viwed this page";
+$cookie=0;
+setcookie("count",$cookie);
+}
+else{
+$cookie=++$_COOKIE['count'];
+setcookie("count",$cookie);
+echo'<h3>You have visited this page
+'.$_COOKIE['count']."Times";
+}
+?>
+ Or
+<?php
+session_start();
+if(isset($_SESSION['count']))
+{
+$_SESSION['count'] = $_SESSION['count']+1;
+}
+else
+{
+$_SESSION['count'] = 1;
+}
+echo'<h3>You have visited this page
+'.$_SESSION['count']."Times";
+?>
+ Slip 2:
+ S2.php
+<?php
+// Start the session
+session_start();
+// Function to set a preference cookie
+function setPreferenceCookie($name, $value) {
+setcookie($name, $value, time() + 3600 * 24 * 30); //
+Cookie expires in 30 days
+}
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Get preferences from the form
+$fontStyle = isset($_POST['font_style']) ?
+$_POST['font_style'] : '';
+$fontSize = isset($_POST['font_size']) ?
+$_POST['font_size'] : '';
+$fontColor = isset($_POST['font_color']) ?
+$_POST['font_color'] : '';
+$bgColor = isset($_POST['bg_color']) ?
+$_POST['bg_color'] : '';
+// Set preference cookies
+setPreferenceCookie('font_style', $fontStyle);
+setPreferenceCookie('font_size', $fontSize);
+setPreferenceCookie('font_color', $fontColor);
+setPreferenceCookie('bg_color', $bgColor);
+// Redirect to the next page
+header('Location: s2_2.php');
+exit();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Change Preferences</title>
+</head>
+<body>
+<h1>Change Preferences</h1>
+<form method="post" action="">
+<label for="font_style">Font Style:</label>
+<select name="font_style" id="font_style">
+<option value="Arial">Arial</option>
+<option value="Verdana">Verdana</option>
+<option value="Times New Roman">Times New
+Roman</option>
+</select><br>
+<label for="font_size">Font Size:</label>
+<select name="font_size" id="font_size">
+<option value="small">Small</option>
+<option value="medium">Medium</option>
+<option value="large">Large</option>
+</select><br>
+<label for="font_color">Font Color:</label>
+<input type="color" name="font_color"
+id="font_color"><br>
+<label for="bg_color">Background Color:</label>
+<input type="color" name="bg_color"
+id="bg_color"><br>
+<input type="submit" value="Save Preferences">
+</form>
+</body>
+</html>
+ S2_2.php
+<?php
+// Start the session
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Display Preferences</title>
+</head>
+<body>
+<h1>Display Preferences</h1>
+<?php
+// Display preferences from cookies
+$fontStyle = isset($_COOKIE['font_style']) ?
+$_COOKIE['font_style'] : 'Arial';
+$fontSize = isset($_COOKIE['font_size']) ?
+$_COOKIE['font_size'] : 'medium';
+$fontColor = isset($_COOKIE['font_color']) ?
+$_COOKIE['font_color'] : '#000000';
+$bgColor = isset($_COOKIE['bg_color']) ?
+$_COOKIE['bg_color'] : '#ffffff';
+echo "<p>Font Style: $fontStyle</p>";
+echo "<p>Font Size: $fontSize</p>";
+echo "<p>Font Color: <span
+style='color:$fontColor;'>$fontColor</span></p>";
+echo "<p>Background Color: <span style='backgroundcolor:$bgColor;color:#ffffff;'>$bgColor</span></p>";
+?>
+<p><a href="s2_3.php">Go to Implementation
+Page</a></p>
+</body>
+</html>
+S2_3.php
+<?php
+// Start the session
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Implement Preferences</title>
+</head>
+<body>
+<h1>Implement Preferences</h1>
+<?php
+// Implement preferences from cookies
+$fontStyle = isset($_COOKIE['font_style']) ?
+$_COOKIE['font_style'] : 'Arial';
+$fontSize = isset($_COOKIE['font_size']) ?
+$_COOKIE['font_size'] : 'medium';
+$fontColor = isset($_COOKIE['font_color']) ?
+$_COOKIE['font_color'] : '#000000';
+$bgColor = isset($_COOKIE['bg_color']) ?
+$_COOKIE['bg_color'] : '#ffffff';
+echo "<p style='font-family:$fontStyle; fontsize:$fontSize; color:$fontColor; backgroundcolor:$bgColor;'>";
+echo "This is an example of implementing user
+preferences on a web page.";
+echo "</p>";
+?>
+</body>
+</html>
+Slip 4:
+S4.html
+<!DOCTYPE html>
+<html>
+<form method="POST" action="s4_1.php">
+Enter emp no:<input type="text" name="no"><br>
+Enter emp name:<input type="text" name="name"><br>
+Enter emp add:<input type="text" name="addr"><br>
+<input type="submit" value="ok">
+</form>
+</html>
+S4_1.php
+<?php
+setcookie('no',$_POST['no']);
+setcookie('name',$_POST['name']);
+setcookie('addr',$_POST['addr']);
+?>
+<html>
+<form action="s4_2.php" method="POST"><br>
+Enter earnings:<br><br>
+basic :<input type="text" name="basic" size=3><br>
+basic HRA:<input type="text" name="HRA" size=3><br>
+basic DA:<input type="text" name="DA"size=3><br>
+<input type="submit" value="Display Info">
+</form>
+</html>
+S4_2.php
+<?php
+echo"<h2>Employee Info</h2><br>No:".$_COOKIE["no"];
+echo"<br>Name:".$_COOKIE["name"];
+echo"<br>Addr:".$_COOKIE["addr"];
+echo"<br><h2>Earning details</h2>";
+echo"<table
+border=1><tr><th>Details</th><th>Values</th></tr>";
+echo"<tr><td>Basic</td><td>".$_POST["basic"]."</td></tr>";
+echo"<tr><td>HRA</td><td>".$_POST["HRA"]."</td></tr>";
+echo"<tr><td>DA</td><td>".$_POST["DA"]."</td></tr></table>
+";
+echo"<br><br>";
+$total=$_POST["basic"]+$_POST["HRA"]+$_POST["DA"];
+echo"<br>Total:".$total;
+?>
+Slip 5
+S5.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+<item type="Electronics">
+<name>Television</name>
+<rate>500</rate>
+<quantity>10</quantity>
+</item>
+<item type="Clothing">
+<name>Shirt</name>
+<rate>50</rate>
+<quantity>20</quantity>
+</item>
+<item type="Grocery">
+<name>Rice</name>
+<rate>40</rate>
+<quantity>30</quantity>
+</item>
+<item type="Books">
+<name>Harry Potter and the Philosopher's Stone</name>
+<rate>20</rate>
+<quantity>50</quantity>
+</item>
+<item type="Sports">
+<name>Football</name>
+<rate>100</rate>
+<quantity>5</quantity>
+</item>
+</items>
+Slip 6:
+<?php
+// Load the XML file into a SimpleXML object
+$xml = simplexml_load_file("book.xml");
+// Display the attributes and elements of the SimpleXML
+object
+Echo "Book attributes: <br>";
+Echo "ISBN: " . $xml['isbn'] . "<br>";
+Echo "Publisher: " . $xml['publisher'] . "<br>";
+Echo "<br>";
+Echo "Book elements: <br>";
+Echo "Title: " . $xml->title . "<br>";
+Echo "Author: " . $xml->author . "<br>";
+Echo "Description: " . $xml->description . "<br>";
+?>
+Slip 7:
+<?php
+// Load the XML file
+$xml = new DOMDocument();
+$xml->load('Movie.xml');
+// Get all the movie nodes
+$movies = $xml->getElementsByTagName('MovieInfo');
+// Loop through each movie node and print the movie title
+and actor name
+Foreach ($movies as $movie) {
+Echo "Movie Title: " . $movie-
+>getElementsByTagName('MovieTitle')[0]->textContent . ",
+";
+Echo "Actor Name: " . $movie-
+>getElementsByTagName('ActorName')[0]->textContent .
+"<br>";
+}
+?>
+Slip 8:
+<?php
+echo "<script>alert('Exams are near, have you started
+preparing for?');
+let num1 = parseInt(prompt('Enter first number: '));
+let num2 = parseInt(prompt('Enter second number: '));
+</script>";
+// js code for addition
+echo "<script>
+if (!isNaN(num1) && !isNaN(num2)) {
+let confirmResult = confirm( 'Are you sure you want to
+add ' + num1 + ' and ' + num2 + '?');
+if (confirmResult) {
+let sum = num1 + num2;
+alert('The sum of ' + num1 + ' and ' + num2 + ' is '
++ sum + '.');
+} else {
+alert('Operation cancelled.');
+}
+} else {
+alert('Invalid input. Please enter valid numbers.');
+}
+</script>";
+?>
+Slip 9:
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<form id="membershipForm" onsubmit="return
+validateform()">
+<label for="user">Username:</label>
+<input type="text" id="user" name="user"><br>
+<label for="pass">Password:</label>
+<input type="text" id="pass" name="pass"><br>
+<input type="submit" value="submit">
+</form>
+<script>
+function validateform()
+{
+var
+user=document.getElementById('user').value;
+var
+pass=document.getElementById('pass').value;
+if(user.length<5)
+{
+alert('username must be at least 5
+characters');
+return false;
+}
+if(pass.length<8)
+{
+alert('password must be at least 8
+character');
+return false;
+}
+if(!/[A-Z]/.test(pass)||!/[az]/.test(pass)||!/[!@#$%^&*()_+{}\[\]:;<>,.?~/-
+]/.test(pass)||!/\d/.test(pass))
+{
+alert("pass must meeet the criteria");
+return false;
+}
+alert('valid user & pass.form submitted
+Succesfully');
+return true;
+}
+</script>
+</body>
+</html>
+Slip 10:
+<!DOCTYPE html>
+<html>
+<head>
+<title>Insert text before and after paragraph using
+jQuery</title>
+<script src=jquery_3.7.1.min.js></script>
+</head>
+<body>
+<h1>Insert text before and after paragraph using
+jQuery</h1>
+<p>This is a paragraph.</p>
+<script>
+$(document).ready(function() {
+$("p").before("Text inserted before the
+paragraph. ");
+$("p").after(" Text inserted after the
+paragraph.");
+});
+</script>
+</body>
+</html>
+Slip 13:
+S13.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Greeting</title>
+</head>
+<body>
+<label for="name">Enter your name:</label>
+<input type="text" id="name" onkeyup="getGreeting()">
+<div id="response"></div>
+<script>
+function getGreeting() {
+var name =
+document.getElementById("name").value.trim();
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status ==
+200) {
+document.getElementById("response").innerHTML =
+this.responseText;
+}
+};
+xhttp.open("GET", "s13.php?name=" +
+encodeURIComponent(name), true);
+xhttp.send();
+}
+</script>
+</body>
+</html>
+S13.php
+<?php
+$name = $_GET['name'] ?? '';
+if ($name == '') {
+echo "Stranger, please tell me your name!";
+} else if (in_array($name, ['Rohit', 'Virat', 'Dhoni',
+'Ashwin', 'Harbhajan'])) {
+echo "Hello, master $name!";
+} else {
+echo "$name, I don't know you!";
+}
+?>
+Slip 14:
+S14.html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Teacher Details</title>
+<script src=jquery_3.7.1.min.js></script>
+</head>
+<body>
+<select id="teacher-list">
+<option value="">--Select Teacher--</option>
+<option value="ALT">ALT</option>
+<option value="Jane Smith">Jane Smith</option>
+<option value="BNM">BNM</option>
+</select>
+<button id="submit-btn">Get Details</button>
+<div id="details"></div>
+<script>
+$(document).ready(function() {
+$('#submit-btn').click(function() {
+var tname = $('#teacher-list').val();
+if (tname == '') {
+Alert('Please select a teacher.');
+Return;
+}
+$.ajax({
+url: 's14_2.php',
+method: 'POST',
+data: {tname: tname},
+success: function(response) {
+$('#details').html(response);
+},
+Error: function(xhr, status, error) {
+Console.log(xhr.responseText);
+}
+});
+});
+});
+</script>
+</body>
+</html>
+S14.php
+<?php
+// Connect to database
+$conn = pg_connect("host=localhost port=5432
+dbname=student user=postgres password=");
+// Check connection
+if (!$conn) {
+die("Connection failed: " . pg_last_error());
+}
+// Retrieve selected teacher details
+if (isset($_POST['tname'])) {
+$tname = $_POST['tname'];
+$sql = "SELECT * FROM TEACHER WHERE tname = '$tname'";
+$result = pg_query($conn, $sql);
+echo"<table
+border=2><tr><th>Tno</th><th>Tname</th><th>Qualification</
+th><th>Salary</th></tr>";
+if (pg_num_rows($result) > 0) {
+while($row = pg_fetch_assoc($result)){
+echo"<tr><td>".$row['tno']."</td><td>";
+echo $row['tname'] ."</td><td>" ;
+echo $row['qualification']." </td>" ;
+echo "<td>".$row['salary'] ."</td></tr>";
+}
+echo"</table>";
+} else {
+echo "No data found.";
+}
+}
+// Close database connection
+pg_close($conn);
+?>
+Slip 16:
+S16.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Book Details</title>
+<script src="jquery_3.7.1.min.js"></script>
+</head>
+<body>
+<select id="bookSelect">
+<option value="">Select Book</option>
+<!-- Options will be populated dynamically using Ajax --
+>
+</select>
+<div id="bookDetails"></div>
+<script>
+$(document).ready(function(){
+// Load books into select dropdown
+$.ajax({
+url: 's16_1.php',
+method: 'GET',
+success: function(data) {
+$('#bookSelect').html(data);
+}
+});
+// On change of book selection, load book details
+$('#bookSelect').change(function(){
+var selectedBook = $(this).val();
+$.ajax({
+url: 's16_2.php',
+method: 'POST',
+data: { book: selectedBook },
+success: function(data) {
+$('#bookDetails').html(data);
+}
+});
+});
+});
+</script>
+</body>
+</html>
+S16_1.php
+<?php
+// Load XML file
+$xml = simplexml_load_file('books.xml');
+$options = "<option value=''>Select Book</option>";
+foreach ($xml->book as $book) {
+$options .= "<option value='".htmlspecialchars($book-
+>title)."'>".htmlspecialchars($book->title)."</option>";
+}
+echo $options;
+?>
+S16_2.php
+<?php
+// Load XML file
+$xml = simplexml_load_file('books.xml');
+// Get selected book from POST request
+$selectedBook = $_POST['book'];
+// Find the selected book in XML
+$bookDetails = "";
+foreach ($xml->book as $book) {
+if ($book->title == $selectedBook) {
+$bookDetails .= "<p>Title:
+".htmlspecialchars($book->title)."</p>";
+$bookDetails .= "<p>Author:
+".htmlspecialchars($book->author)."</p>";
+$bookDetails .= "<p>Year:
+".htmlspecialchars($book->year)."</p>";
+$bookDetails .= "<p>Price:
+$".htmlspecialchars($book->price)."</p>";
+break; // Once found, break the loop
+}
+}
+echo $bookDetails;
+?>
+Slip 17:
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Registration Form</title>
+<script>
+window.onload = function() {
+alert("Hello Good Morning!");
+};
+</script>
+</head>
+<body>
+<h1>Student Registration Form</h1>
+<form>
+<label for="name">Name:</label>
+<input type="text" id="name" name="name"
+required><br><br>
+<label for="email">Email:</label>
+<input type="email" id="email" name="email"
+required><br><br>
+<label for="phone">Phone:</label>
+<input type="tel" id="phone" name="phone"
+required><br><br>
+<label for="address">Address:</label>
+<textarea id="address" name="address"
+required></textarea><br><br>
+<input type="submit" value="Submit">
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Registration Form</title>
+<script>
+window.onload = function() {
+alert("Hello Good Morning!");
+};
+</script>
+</head>
+<body>
+<h1>Student Registration Form</h1>
+<form>
+<label for="name">Name:</label>
+<input type="text" id="name" name="name"
+required><br><br>
+<label for="email">Email:</label>
+<input type="email" id="email" name="email"
+required><br><br>
+<label for="phone">Phone:</label>
+<input type="tel" id="phone" name="phone"
+required><br><br>
+<label for="address">Address:</label>
+<textarea id="address" name="address"
+required></textarea><br><br>
+<input type="submit" value="Submit">
+</form>
+</body>
+</html>
+</form>
+Slip 18:
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fibonacci Numbers</title>
+<script>
+function generateFibonacci() {
+// Get the input value from the user
+var input =
+document.getElementById("inputNumber").value;
+var output =
+document.getElementById("output");
+// Convert the input to a number
+var n = parseInt(input);
+// Create an array to store the Fibonacci
+sequence
+var fib = [];
+fib[0] = 0;
+fib[1] = 1;
+for (var i = 2; i <n; i++) {
+fib[i] = fib[i-1] + fib[i-2];
+}
+// Display the Fibonacci sequence
+output.innerHTML = "Fibonacci sequence up to "
++ n + ": " + fib.join(", ");
+}
+</script>
+</head>
+<body>
+<h1>Fibonacci Numbers</h1>
+<p>Enter a number:</p>
+<input type="text" id="inputNumber" name
+="inputNumber">
+<button onclick="generateFibonacci()">Generate
+Fibonacci</button>
+<p id="output"></p>
+</body>
+</html>
+Slip 19:
+<!DOCTYPE html>
+<html>
+<head>
+<title>Validate User Name and Password</title>
+<script>
+function validateForm() {
+var username =
+document.forms["myForm"]["username"].value;
+var password =
+document.forms["myForm"]["password"].value;
+if (username == "") {
+alert("Username must be filled out");
+return false;
+}
+if (password == "") {
+alert("Password must be filled out");
+return false;
+}
+}
+</script>
+</head>
+<body>
+<h2>Validate User Name and Password</h2>
+<form name="myForm" onsubmit="return validateForm()"
+method="post">
+<label for="username">Username:</label>
+<input type="text" id="username"
+name="username"><br><br>
+<label for="password">Password:</label>
+<input type="password" id="password"
+name="password"><br><br>
+<input type="submit" value="Submit">
+</form>
+</body>
+</html>
+Slip 20:
+S20.xml
+<?xml version="1.0"?>
+<students>
+<student>
+<name>John Doe</name>
+<age>21</age>
+<gender>Male</gender>
+<major>Computer Science</major>
+<gpa>3.8</gpa>
+</student>
+<student>
+<name>Jane Smith</name>
+<age>19</age>
+<gender>Female</gender>
+<major>Business</major>
+<gpa>3.5</gpa>
+</student>
+<student>
+<name>Tom Johnson</name>
+<age>20</age>
+<gender>Male</gender>
+<major>Engineering</major>
+<gpa>3.2</gpa>
+</student>
+<student>
+<name>Sara Lee</name>
+<age>22</age>
+<gender>Female</gender>
+<major>Psychology</major>
+<gpa>3.6</gpa>
+</student>
+<student>
+<name>Mike Brown</name>
+<age>18</age>
+<gender>Male</gender>
+<major>Education</major>
+<gpa>3.4</gpa>
+</student>
+</students>
+Slip 24:
+S24.html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student details</title>
+</head>
+<body>
+<form method="post" action="s24.php">
+Enter course name:
+<input type="text" name="course">
+<br>
+<input type="submit" name='btn'
+value="Submit">
+</form>
+</body>
+</html>
+S24.php
+<?php
+// Define student details
+$str =<<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<StudInfo>
+<Student>
+<rollno>1</rollno>
+<studname>John Deo</studname>
+<addr>Pune</addr>
+<college>D.Y.Patil College</college>
+<course>BSC C.S</course>
+</Student>
+<Student>
+<rollno>2</rollno>
+<studname>Alex</studname>
+<addr>Nashik</addr>
+<college>K.T.H.M.College</college>
+<course>BCom</course>
+</Student>
+<Student>
+<rollno>3</rollno>
+<studname>Ana</studname>
+<addr>Pune</addr>
+<college>Symboisis College</college>
+<course>BCom</course>
+</Student>
+<Student>
+<rollno>4</rollno>
+<studname>Dev</studname>
+<addr>Mumbai</addr>
+<college>C.A.College</college>
+<course>C.A.</course>
+</Student>
+<Student>
+<rollno>5</rollno>
+<studname>Jonny</studname>
+<addr>Dhule</addr>
+<college>S.V.K.M.College</college>
+<course>Engineering</course>
+</Student>
+</StudInfo>
+XML;
+$fname="student.xml";
+$fp = fopen($fname,"w");
+fwrite($fp, $str);
+fclose($fp);
+echo "created filename is:".$fname;
+if(isset($_POST['btn']))
+{
+// Get course input from user
+$course = $_POST['course'];
+// Load the XML file
+$xml = simplexml_load_file('student.xml');
+// Print table of matching students
+echo "<table border='1'>";
+echo "<tr><th>Roll
+No</th><th>Name</th><th>Address</th><th>College</th><th>Co
+urse</th></tr>";
+foreach ($xml->Student as $student) {
+if($student->course==$course)
+{
+echo "<tr>";
+echo "<td>$student->rollno</td>";
+echo "<td>$student->studname</td>";
+echo "<td>$student->addr</td>";
+echo "<td>$student->college</td>";
+echo "<td>$student->course</td>";
+echo "</tr>";
+}
+}
+echo "</table>";
+}
+?>
+Slip 25:
+<?php
+// Create a new DOM document
+$doc = new DOMDocument();
+// Create the root element
+$cricketTeam = $doc->createElement("CricketTeam");
+// Create the first team element for Australia
+$teamAustralia = $doc->createElement("Team");
+$teamAustralia->setAttribute("country", "Australia");
+// Create the player element and set its value
+$player1 = $doc->createElement("player", "Steve Smith");
+$teamAustralia->appendChild($player1);
+// Create the runs element and set its value
+$runs1 = $doc->createElement("runs", "7090");
+$teamAustralia->appendChild($runs1);
+// Create the wicket element and set its value
+$wicket1 = $doc->createElement("wicket", "17");
+$teamAustralia->appendChild($wicket1);
+// Append the team element to the root element
+$cricketTeam->appendChild($teamAustralia);
+// Create the second team element for India
+$teamIndia = $doc->createElement("Team");
+$teamIndia->setAttribute("country", "India");
+// Create the player element and set its value
+$player2 = $doc->createElement("player", "Virat Kohli");
+$teamIndia->appendChild($player2);
+// Create the runs element and set its value
+$runs2 = $doc->createElement("runs", "12169");
+$teamIndia->appendChild($runs2);
+// Create the wicket element and set its value
+$wicket2 = $doc->createElement("wicket", "4");
+$teamIndia->appendChild($wicket2);
+// Create the category element and set its value
+$category = $doc->createElement("category", "Captain");
+$teamIndia->appendChild($category);
+// Append the team element to the root element
+$cricketTeam->appendChild($teamIndia);
+// Append the root element to the document
+$doc->appendChild($cricketTeam);
+// Save the XML file
+$doc->save("cricket.xml");
+Echo "Elements added successfully!";
+?>
+Slip 26:
+S26.html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Employee Details</title>
+<script>
+function getEmployeeDetails() {
+var ename =
+document.getElementById("ename").value;
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status ==
+200) {
+document.getElementById("employeeDetails").innerHTML =
+this.responseText;
+}
+};
+xhttp.open("GET", "s26.php?ename=" + ename,
+true);
+xhttp.send();
+}
+</script>
+</head>
+<body>
+<h2>Employee Details</h2>
+<label for="ename">Select Employee Name:</label>
+<select id="ename">
+<!-- Populate this dropdown with employee names
+from your database -->
+<option value="John Doe">John Doe</option>
+<option value="Jane Smith">Jane Smith</option>
+<option value="Michael Johnson">Michael
+Johnson</option>
+<option value="Emily Brown">Emily Brown</option>
+<option value="David Wilson">David Wilson</option>
+<!-- Add more options as needed -->
+</select>
+<button onclick="getEmployeeDetails()">Get
+Details</button>
+<div id="employeeDetails"></div>
+</body>
+</html>
+S26.php
+<?php
+$host = "host=127.0.0.1";
+$port = "port=5432";
+$dbname = "dbname=postgres";
+$user = "user=postgres";
+$password = "password=shubham@123";
+$conn = pg_connect("$host $port $user $password");
+if (!$conn) {
+die("Connection failed: " . pg_last_error());
+}
+$ename = pg_escape_string($_GET['ename']);
+$sql = "SELECT * FROM emp WHERE ename = '$ename'";
+$result = pg_query($conn, $sql);
+if ($result) {
+if (pg_num_rows($result) > 0) {
+$row = pg_fetch_assoc($result);
+echo "Employee Number: " . $row["eno"] . "<br>";
+echo "Employee Name: " . $row["ename"] . "<br>";
+echo "Designation: " . $row["designation"] .
+"<br>";
+echo "Salary: " . $row["salary"] . "<br>";
+} else {
+echo "No employee found with the name " . $ename;
+}
+pg_free_result($result);
+} else {
+echo "Error executing query: " . pg_last_error($conn);
+}
+pg_close($conn);
+?>
+/*CREATE TABLE employee (
+eno SERIAL PRIMARY KEY,
+ename VARCHAR(100),
+designation VARCHAR(100),
+salary DECIMAL(10, 2)
+);*/
+?>
+Slip 27:
+S27.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Voter Details</title>
+<script src="jquery_3.7.1.min.js"></script>
+<script src="script_27.js"></script>
+</head>
+<body>
+<h2>Enter Voter Details</h2>
+<form id="voterForm" action="submit.php"
+method="post">
+<label for="name">Name:</label>
+<input type="text" id="name" name="name"
+required><br><br>
+<label for="age">Age:</label>
+<input type="number" id="age" name="age"
+required><br><br>
+<label for="nationality">Nationality:</label>
+<input type="text" id="nationality"
+name="nationality" required><br><br>
+<input type="submit" value="Submit">
+</form>
+<div id="message"></div>
+</body>
+</html>
+S27.php
+<?php
+$name = $_POST['name'];
+$age = $_POST['age'];
+$nationality = $_POST['nationality'];
+// Server-side validation
+if ($name !== strtoupper($name)) {
+echo "Name should be in uppercase letters only.";
+} elseif ($age < 18) {
+echo "Age should not be less than 18 years.";
+} elseif (strtolower($nationality) !== 'indian') {
+echo "Nationality should be Indian.";
+}
+else {
+echo 'Validation successful. Voter details: <br>Name:
+'.$name.'<br>Age: '.$age.'<br>Nationality: '.$nationality;
+}
+?>
+Slip 29:
+<!DOCTYPE html>
+<html>
+<head>
+<title>Number Operations</title>
+</head>
+<body>
+<h1>Number Operations</h1>
+<form method="post" action="<?php echo
+htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<label for="num">Enter a number:</label>
+<input type="number" name="num" id="num" required>
+<br><br>
+<label for="op">Select an operation:</label>
+<select name="op" id="op" required>
+<option value="">--Select--</option>
+<option value="fib">Fibonacci Series</option>
+<option value="sum">Sum of Digits</option>
+</select>
+<br><br>
+<input type="submit" value="Submit">
+</form>
+<?php
+$num = $op = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$num = $_POST["num"];
+$op = $_POST["op"];
+Switch ($op) {
+case "fib":
+$result = fibonacci($num);
+echo "<p>The Fibonacci series of $num
+numbers is: $result</p>";
+Break;
+case "sum":
+$result = sumOfDigits($num);
+echo "<p>The sum of digits in $num is:
+$result</p>";
+Break;
+default:
+echo "<p>Invalid operation selected</p>";
+}
+}
+function fibonacci($num) {
+$fib =$num;
+$fib[0] = 0;
+$fib[1] = 1;
+for ($i = 2; $i <$num; $i++) {
+$fib[$i] = $fib[$i-1] + $fib[$i-2];
+}
+return $fib;
+}
+function sumOfDigits($num) {
+$sum = 0;
+while ($num > 0) {
+$sum+=$num % 10;
+$num = (int)($num / 10);
+}
+return $sum;
+}
+?>
+</body>
+</html>
+Slip 30:
+S30.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Bookstore>
+<Yoga>
+<Book>
+<Book_Title>Light on Yoga</Book_Title>
+<Book_Author>B.K.S. Iyengar</Book_Author>
+<Book_Price>20.99</Book_Price>
+</Book>
+<Book>
+<Book_Title>The Yoga Bible</Book_Title>
+<Book_Author>Christina Brown</Book_Author>
+<Book_Price>15.50</Book_Price>
+</Book>
+</Yoga>
+<Story>
+<Book>
+<Book_Title>The Alchemist</Book_Title>
+<Book_Author>Paulo Coelho</Book_Author>
+<Book_Price>12.99</Book_Price>
+</Book>
+<Book>
+<Book_Title>The Da Vinci Code</Book_Title>
+<Book_Author>Dan Brown</Book_Author>
+<Book_Price>14.75</Book_Price>
+</Book>
+</Story>
+<Technical>
+<Book>
+<Book_Title>Python for Data Science
+Handbook</Book_Title>
+<Book_Author>Jake VanderPlas</Book_Author>
+<Book_Price>28.99</Book_Price>
+</Book>
+<Book>
+<Book_Title>Cracking the Coding
+Interview</Book_Title>
+<Book_Author>Gayle Laakmann McDowell</Book_Author>
+<Book_Price>23.50</Book_Price>
+</Book>
+</Technical>
+</Bookstore>

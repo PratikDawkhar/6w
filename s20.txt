@@ -1,0 +1,10 @@
+Importnltk
+Fromnltk.corpusimportstopwords
+Nltk.download(‘stopwords’)
+#Textparagraph
+Text=“Helloall,WelcometoPythonProgrammingAcademy.PythonProgrammingAcademyisaniceplatformtolearnnewprogrammingskills.ItisdifficulttogetenrolledinthisAcademy.”#Tokenizethetext
+Tokens=nltk.word_tokenize(text)
+#Removestopwords
+Stop_words=set(stopwords.words(‘english’))
+Filtered_tokens=[wordforwordintokensifnotword.lower()instop_words]#Printthefilteredtokens
+Print(filtered_tokens)
